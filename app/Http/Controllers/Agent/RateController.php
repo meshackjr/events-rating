@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Models\Rate;
 use Illuminate\Http\Request;
 
@@ -36,17 +37,19 @@ class RateController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $rates = Rate::where('event_id', $id)->get();
+        $event = Event::find($id);
 
-        return view('agent.ratings', compact('rates'));
+        $total_rating_no = $event->rates->count();
+        $sum = 0;
+        foreach ($event->rates as $rate){
+            $sum += $rate->rate;
+        }
+        $average_rating = $sum / $total_rating_no;
+
+        return view('agent.ratings-single', compact('rates', 'event', 'total_rating_no', 'average_rating'));
     }
 
     /**
