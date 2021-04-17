@@ -111,6 +111,28 @@
                     </div>
 
                     <p class="my-4 text-center">Help us improve on our future events by taking telling us about your experience on this event!</p>
+
+                    @if($event->questions->count())
+                        @foreach($event->questions as $question)
+                            <div class=" md:mx-32 my-2">
+                                <h5 class="text-center font-bold">{{ $loop->iteration }}. {{ $question->question }}</h5><br>
+                                @if($question->type == 'short')
+                                    <input type="text" name="{{ $question->id }}" class="form-control">
+                                @elseif($question->type == 'long')
+                                    <textarea name="{{ $question->id }}" class="form-control" rows="7" placeholder="I was impressed by the...."></textarea>
+                                @elseif($question->type == 'options')
+{{--                                    {{ $question->options }}--}}
+                                    @php($options = explode(';', $question->options))
+                                    <select name="{{ $question->id }}" class="form-control" >
+                                        @foreach($options as $option)
+                                            <option>{{ $option }}</option>
+                                        @endforeach
+                                    </select>
+                                @endif
+                            </div>
+                        @endforeach
+                    @endif
+
                 </div>
             </div>
 

@@ -15,6 +15,10 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('event_id');
+            $table->enum('type', ['short', 'long', 'options']);
+            $table->string('question');
+            $table->text('options')->nullable();
             $table->timestamps();
         });
     }

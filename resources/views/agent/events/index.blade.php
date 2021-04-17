@@ -23,8 +23,9 @@
                                 <td>{{ $event->date }}</td>
                                 <td>{{ $event->description }}</td>
                                 <td class="text-nowrap">
-                                    <a href="#" class="btn d-inline-block"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn text-danger d-inline-block"><i class="fa fa-trash"></i></a>
+{{--                                    <a href="#" class="btn d-inline-block"><i class="fa fa-pencil"></i></a>--}}
+{{--                                    <a href="#" class="btn text-danger d-inline-block"><i class="fa fa-trash"></i></a>--}}
+                                    <a href="{{ route('agent.questions.create', $event->id) }}" class="btn text-danger d-inline-block" title="Create Event Review Questions"><i class="fa fa-comment-o"></i></a>
                                 </td>
                             </tr>
                         @endforeach

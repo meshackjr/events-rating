@@ -37,4 +37,12 @@ class Event extends Model
     public function getDate(){
         return Carbon::make($this->date)->diffForHumans();
     }
+
+    public function questions(){
+        return $this->hasMany(Question::class);
+    }
+
+    public function answers(){
+        return $this->hasMany(Answer::class);
+    }
 }

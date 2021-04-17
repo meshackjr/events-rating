@@ -35,7 +35,8 @@ Route::middleware('auth:agent')->prefix('agent')->as('agent.')->group(function (
         return view('agent.index');
     })->name('dashboard');
     Route::resource('events', 'App\Http\Controllers\Agent\EventsController');
-
+    Route::resource('questions', 'App\Http\Controllers\Agent\QuestionsController');
+    Route::get('questions/create/{event}', [\App\Http\Controllers\Agent\QuestionsController::class, 'create'])->name('questions.create');
 });
 
 Route::middleware('auth')->group(function (){
