@@ -29,6 +29,10 @@ class Event extends Model
         return $this->belongsTo(Agent::class);
     }
 
+    public function rates(){
+        return $this->hasMany(Rate::class);
+    }
+
     public function getImage(){
 
         return Storage::exists($this->banner) ? Storage::url($this->banner) : asset('images/sample_logo.jpeg');

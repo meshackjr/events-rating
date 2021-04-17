@@ -17,6 +17,7 @@ class CreateAnswersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('question_id');
             $table->unsignedBigInteger('event_id');
+            $table->unsignedBigInteger('agent_id');
             $table->text('answer');
             $table->timestamps();
         });

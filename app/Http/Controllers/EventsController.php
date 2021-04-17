@@ -54,17 +54,22 @@ class EventsController extends Controller
     }
 
     public function storeReview(Request $request, $eventId){
+        $event = Event::find($eventId);
+        $agent = $event->agent;
+
         Rate::create([
             'rate' => $request->rating,
-            'review' => $request->review
+            'review' => $request->review,
+            'event_id' => $eventId,
+            'agent_id' => $agent->id,
         ]);
 
-        $event = Event::find($eventId);
         foreach ($event->questions as $question){
             Answer::create([
                 'question_id' => $question->id,
                 'event_id' => $eventId,
-                'answer' => $request->get($question->id)
+                'answer' => $request->get($question->id),
+                'agent_id' => $agent->id,
             ]);
         }
 

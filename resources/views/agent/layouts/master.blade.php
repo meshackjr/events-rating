@@ -91,7 +91,7 @@
                 <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 @if(request()->is('agent/dashboard*')) bg-gray-200 @endif rounded-lg" href="{{ route('agent.dashboard') }}">Dashboard</a>
                 <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 @if(request()->is('agent/events*')) bg-gray-200 @endif rounded-lg  " href="{{ route('agent.events.index') }}">Events</a>
                 <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 rounded-lg  " href="{{ route('agent.events.create') }}">Create Event</a>
-                <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 @if(request()->is('agent/ratings*')) bg-gray-200 @endif bg-transparent rounded-lg  " href="#">Ratings & Reviews</a>
+                <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 @if(request()->is('agent/ratings*')) bg-gray-200 @endif bg-transparent rounded-lg  " href="{{ route('agent.ratings.index') }}">Ratings & Reviews</a>
                 <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 @if(request()->is('agent/ratings*')) bg-gray-200 @endif bg-transparent rounded-lg  " href="#">Create R</a>
                 <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 @if(request()->is('agent/profile*')) bg-gray-200 @endif bg-transparent rounded-lg  " href="#">Profile</a>
 

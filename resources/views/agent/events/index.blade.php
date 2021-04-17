@@ -25,7 +25,8 @@
                                 <td class="text-nowrap">
 {{--                                    <a href="#" class="btn d-inline-block"><i class="fa fa-pencil"></i></a>--}}
 {{--                                    <a href="#" class="btn text-danger d-inline-block"><i class="fa fa-trash"></i></a>--}}
-                                    <a href="{{ route('agent.questions.create', $event->id) }}" class="btn text-danger d-inline-block" title="Create Event Review Questions"><i class="fa fa-comment-o"></i></a>
+                                    <a href="{{ route('agent.ratings.show', $event->id) }}" class="btn text-dblue-900 d-inline-block" title="View Ratings and Reviews"><i class="fa fa-sticky-note"></i> {{ $event->rates->count() }}</a>
+                                    <a href="{{ route('agent.questions.create', $event->id) }}" class="btn text-green-800 d-inline-block" title="Create Event Review Questions"><i class="fa fa-commenting-o"></i> {{ $event->questions->count() }}</a>
                                 </td>
                             </tr>
                         @endforeach

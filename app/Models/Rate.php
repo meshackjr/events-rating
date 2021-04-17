@@ -11,15 +11,17 @@ class Rate extends Model
 
     protected $fillable = [
         'rate',
-        'review'
+        'review',
+        'event_id',
+        'agent_id'
     ];
 
     public function questions(){
         return $this->hasMany(Question::class);
     }
 
-    public function rates(){
-        return $this->hasMany(Rate::class);
+    public function event(){
+        return $this->belongsTo(Event::class);
     }
 
     public function answers(){
