@@ -5,8 +5,7 @@
 @include('layouts.nav')
 <div class="bg-indigo-100">
     <div class="container mx-auto">
-
-
+        @include('messages')
         <div class="container">
             <div class="row align-items-stretch py-5">
                 <div class="col">
@@ -88,7 +87,7 @@
                     <h3 class="display-6 font-bold mt-12 text-center text-dblue-900"><i class="fa fa-commenting mr-1"></i> Rate our event!</h3>
 {{--                    <p class="my-4">Help us improve on our future events. Let us know how wa this event experience to--}}
 {{--                        you!</p>--}}
-                    <form method="POST" action="{{ route('event.review', $event->id) }}" novalidate>
+                    <form method="POST" action="{{ route('event.review', $event->id) }}">
                         @csrf
                     <div class="form-group">
                         <div class="rating">
@@ -111,7 +110,7 @@
                     </div>
                     <div class=" md:mx-32 my-2">
                         <h5 class="text-center">Write your review!</h5><br>
-                        <textarea class="form-control" rows="7" placeholder="I was impressed by the...." required></textarea>
+                        <textarea name="review" class="form-control" rows="7" placeholder="I was impressed by the...." required></textarea>
                     </div>
 
                     <p class="my-4 text-center">Help us improve on our future events by taking telling us about your experience on this event!</p>

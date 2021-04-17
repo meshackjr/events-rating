@@ -55,7 +55,7 @@ class EventsController extends Controller
 
     public function storeReview(Request $request, $eventId){
         Rate::create([
-            'rate' => $request->rate,
+            'rate' => $request->rating,
             'review' => $request->review
         ]);
 
@@ -64,12 +64,12 @@ class EventsController extends Controller
             Answer::create([
                 'question_id' => $question->id,
                 'event_id' => $eventId,
-                $request->get($question->id)
+                'answer' => $request->get($question->id)
             ]);
         }
 
         session()->flash('success', 'Thank you for submitting your review!');
-        return redirect()->back();
+        return redirect()->route('event', $eventId);
     }
 
     /**
