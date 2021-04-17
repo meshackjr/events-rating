@@ -44,7 +44,7 @@
                     <p class="my-4">{{ $event->description }}</p>
                 </div>
 
-                <div class="col-md-12">
+                <div class="col-md-5">
                     <table>
                         <tr>
                             <td class="w-1/2 font-bold py-2">Location</td>
@@ -65,8 +65,8 @@
                     </table>
                 </div>
 
-                <div class="col-md-12">
-                    <h5 class="display-6 text-xl font-bold mt-6 text-dblue-900"><i class="fa fa-share-alt mr-3"></i> Share This Event
+                <div class="col-md-4">
+                    <h5 class="display-6 text-xl font-bold text-dblue-900"><i class="fa fa-share-alt mr-3"></i> Share This Event
                     </h5>
 
                     <div class="mt-2">
@@ -76,54 +76,58 @@
                         <a href="https://wa.me/?text={{ urlencode($event->name) }}" target="_blank" class="bg-yellow-200 rounded-full px-4 py-3  mx-auto mt-2">
                             <i class="fa fa-whatsapp"></i> Whatsapp
                         </a>
-                        <canvas id="canvas" class="mt-3"></canvas>
-
 
                     </div>
 
-
+                </div>
+                <div class="col-md-3">
+                    <canvas id="canvas"></canvas>
                 </div>
 
                 <div class="col-md-12">
                     <h3 class="display-6 font-bold mt-12 text-center text-dblue-900"><i class="fa fa-commenting mr-1"></i> Rate our event!</h3>
 {{--                    <p class="my-4">Help us improve on our future events. Let us know how wa this event experience to--}}
 {{--                        you!</p>--}}
+                    <form method="POST" action="{{ route('event.review', $event->id) }}" novalidate>
+                        @csrf
                     <div class="form-group">
                         <div class="rating">
 
-                            <input style=" display: none !important;" type="radio" name="rating" value="1" id="1"><label
-                                for="1">☆</label>
-                            <input style=" display: none !important;" type="radio" name="rating" value="2" id="2"><label
-                                for="2">☆</label>
-                            <input style=" display: none !important;" type="radio" name="rating" value="3" id="3"><label
-                                for="3">☆</label>
+
+                            <input style=" display: none !important;" type="radio" name="rating" value="5" id="5" required><label
+                                for="5">☆</label>
                             <input style=" display: none !important;" type="radio" name="rating" value="4" id="4"><label
                                 for="4">☆</label>
-                            <input style=" display: none !important;" type="radio" name="rating" value="5" id="5"><label
-                                for="5">☆</label>
+                            <input style=" display: none !important;" type="radio" name="rating" value="3" id="3"><label
+                                for="3">☆</label>
+                            <input style=" display: none !important;" type="radio" name="rating" value="2" id="2"><label
+                                for="2">☆</label>
+                            <input style=" display: none !important;" type="radio" name="rating" value="1" id="1"><label
+                                for="1">☆</label>
+
 
 
                         </div>
                     </div>
                     <div class=" md:mx-32 my-2">
                         <h5 class="text-center">Write your review!</h5><br>
-                        <textarea class="form-control" rows="7" placeholder="I was impressed by the...."></textarea>
+                        <textarea class="form-control" rows="7" placeholder="I was impressed by the...." required></textarea>
                     </div>
 
                     <p class="my-4 text-center">Help us improve on our future events by taking telling us about your experience on this event!</p>
 
                     @if($event->questions->count())
                         @foreach($event->questions as $question)
-                            <div class=" md:mx-32 my-2">
-                                <h5 class="text-center font-bold">{{ $loop->iteration }}. {{ $question->question }}</h5><br>
+                            <div class=" md:mx-32 my-4">
+                                <h5 class=" font-bold">{{ $loop->iteration }}. {{ $question->question }}</h5><br>
                                 @if($question->type == 'short')
-                                    <input type="text" name="{{ $question->id }}" class="form-control">
+                                    <input type="text" name="{{ $question->id }}" class="form-control" required>
                                 @elseif($question->type == 'long')
-                                    <textarea name="{{ $question->id }}" class="form-control" rows="7" placeholder="I was impressed by the...."></textarea>
+                                    <textarea required name="{{ $question->id }}" class="form-control" rows="7" placeholder="I was impressed by the...."></textarea>
                                 @elseif($question->type == 'options')
 {{--                                    {{ $question->options }}--}}
                                     @php($options = explode(';', $question->options))
-                                    <select name="{{ $question->id }}" class="form-control" >
+                                    <select name="{{ $question->id }}" class="form-control" required>
                                         @foreach($options as $option)
                                             <option>{{ $option }}</option>
                                         @endforeach
@@ -132,32 +136,71 @@
                             </div>
                         @endforeach
                     @endif
-
+                    <div class="md:mx-32 my-4">
+                        <button class="ot-btn">Submit Review!</button>
+                    </div>
+                    </form>
                 </div>
             </div>
 
-            <div class="md:flex md:flex-wrap md:-mx-4 mt-6 md:mt-12">
+            <div class="container">
+                <div class="row">
+                    <h3 class="text-center font-bold my-12 text-3xl">Other events like this!</h3>
+                    {{--                    <div class="h-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 grid-flow-row gap-4 justify-center items-center">--}}
+                    @foreach($otherEvents as $event)
+                        <div class="col-md-4 my-4">
+                            <a href="{{ route('event', $event->id) }}">
+                                <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url({{ $event->getImage() }}); background-size: cover; background-position: center;">
+                                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                                        <h2 class="pt-32 mt-5 mb-4 lh-1 fw-bold">{{ $event->name }}</h2>
+                                        <ul class="d-flex list-unstyled mt-auto">
+                                            {{--                                        <li class="me-auto bg-white p-3">--}}
+                                            {{--                                            <img src="{{ asset('otapp_logo.png') }}" alt="Bootstrap" style="height: 32px; width: auto;" class="rounded-sm bg-white border border-white">--}}
+                                            {{--                                        </li>--}}
+                                            <li class="d-flex align-items-center me-3">
+                                                <i class="fa fa-map-marker mx-2"></i>
+                                                <small>{{ $event->location }}</small>
+                                            </li>
+                                            <li class="d-flex align-items-center">
+                                                <i class="fa fa-calendar mx-2"></i>
+                                                <small>{{ \Carbon\Carbon::make($event->date)->diffForHumans() }}</small>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                    {{--                    </div>--}}
+                </div>
+            </div>
+
+            <div class="md:flex md:flex-wrap md:-mx-4 p-12 pb-32 md:mt-12">
 
                 <div class="md:w-1/3 md:px-4 xl:px-6 mt-8 md:mt-0 text-center">
                     <span class="w-20 border-t-2 border-solid border-indigo-200 inline-block mb-3"></span>
-                    <h5 class="text-xl font-medium uppercase mb-4">Fresh Design</h5>
-                    <p class="text-gray-600">FWR blocks bring in an air of fresh design with their creative layouts and
-                        blocks, which are easily customizable</p>
+                    <h5 class="text-xl font-medium uppercase mb-4">Otapp for your Events!</h5>
+                    <p class="text-gray-600">Looking for a event solution ? Contact Otapp now and benefit from our services across the country!</p>
                 </div>
 
                 <div class="md:w-1/3 md:px-4 xl:px-6 mt-8 md:mt-0 text-center">
                     <span class="w-20 border-t-2 border-solid border-indigo-200 inline-block mb-3"></span>
-                    <h5 class="text-xl font-medium uppercase mb-4">Clean Code</h5>
-                    <p class="text-gray-600">FWR blocks are the cleanest pieces of HTML blocks, which are built with
-                        utmost care to quality and usability.</p>
+                    <h5 class="text-xl font-medium uppercase mb-4">Contact Us</h5>
+                    <p class="text-gray-600 my-2">
+                        <i class="fa fa-phone"></i> <a href="tel:255 677 555 999"><span>+ 255 677 555 999 </span></a>
+                    </p>
+                    <p class="text-gray-600 my-2">
+                        <i class="fa fa-envelope"></i> <a href="mailto:info@otapp.net"><span>+ info@otapp.net </span></a>
+                    </p>
+
                 </div>
 
-                <div class="md:w-1/3 md:px-4 xl:px-6 mt-8 md:mt-0 text-center">
-                    <span class="w-20 border-t-2 border-solid border-indigo-200 inline-block mb-3"></span>
-                    <h5 class="text-xl font-medium uppercase mb-4">Perfect Tool</h5>
-                    <p class="text-gray-600">FWR blocks is a perfect tool for designers, developers and agencies looking
-                        to create stunning websites in no time.</p>
-                </div>
+{{--                <div class="md:w-1/3 md:px-4 xl:px-6 mt-8 md:mt-0 text-center">--}}
+{{--                    <span class="w-20 border-t-2 border-solid border-indigo-200 inline-block mb-3"></span>--}}
+{{--                    <h5 class="text-xl font-medium uppercase mb-4">Perfect Tool</h5>--}}
+{{--                    <p class="text-gray-600">FWR blocks is a perfect tool for designers, developers and agencies looking--}}
+{{--                        to create stunning websites in no time.</p>--}}
+{{--                </div>--}}
 
             </div>
 

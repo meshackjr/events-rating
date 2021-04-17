@@ -21,6 +21,7 @@ Route::get('/', function () {
 
 Route::get('events/{category}', [\App\Http\Controllers\EventsController::class, 'index'])->name('events');
 Route::get('event/{event}', [\App\Http\Controllers\EventsController::class, 'show'])->name('event');
+Route::post('event/review/{event}', [\App\Http\Controllers\EventsController::class, 'storeReview'])->name('event.review');
 
 Route::middleware('auth:admin')->prefix('admin')->as('admin.')->group(function (){
     Route::get('/dashboard', function (){

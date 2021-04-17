@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answer;
 use App\Models\EventCategory;
+use App\Models\Rate;
 use Illuminate\Http\Request;
 use App\Models\Event;
 
@@ -46,19 +48,28 @@ class EventsController extends Controller
     public function show($eventId)
     {
         $event = Event::find($eventId);
+        $otherEvents = Event::where('event_category_id', $event->event_category_id)->take(3)->get();
 
-        return view('event', compact('event'));
+        return view('event', compact('event', 'otherEvents'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function storeReview(Request $request, $eventId){
+        Rate::create([
+            'rate' => $request->rate,
+            'review' => $request->review
+        ]);
+
+        $event = Event::find($eventId);
+        foreach ($event->questions as $question){
+            Answer::create([
+                'question_id' => $question->id,
+                'event_id' => $eventId,
+                $request->get($question->id)
+            ]);
+        }
+
+        session()->flash('success', 'Thank you for submitting your review!');
+        return redirect()->back();
     }
 
     /**
