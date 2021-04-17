@@ -15,7 +15,7 @@ class EventsController extends Controller
      */
     public function index(Request $request, $category)
     {
-        $events = Event::where('event_category_id', $category)->get();
+        $events = Event::where('event_category_id', $category)->orderBy('date')->paginate(9);
         $categoryname = EventCategory::find($category)->first()->name;
 
         return view('events', compact('events', 'categoryname'));
@@ -45,7 +45,7 @@ class EventsController extends Controller
 
     public function show($eventId)
     {
-        $event = Event::find($eventId)->first();
+        $event = Event::find($eventId);
 
         return view('event', compact('event'));
     }

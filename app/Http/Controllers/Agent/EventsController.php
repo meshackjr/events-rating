@@ -36,7 +36,7 @@ class EventsController extends Controller
 
     public function store(Request $request)
     {
-        $banner = $request->file('banner')->store('banners');
+        $banner = $request->file('banner')->store('public');
         $id = auth('agent')->user()->id;
 
         Event::create([

@@ -30,30 +30,32 @@
             <div class="container">
                 <div class="row">
                     <h3 class="text-center font-bold my-12 text-3xl">Latest Events</h3>
-                    <div class="h-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 grid-flow-row gap-4 justify-center items-center">
+{{--                    <div class="h-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 grid-flow-row gap-4 justify-center items-center">--}}
                         @foreach($events as $event)
-                            <a href="{{ route('event', $event->id) }}">
-                                <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url({{ $event->getImage() }}); background-size: cover; background-position: center;">
-                                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                                        <h2 class="pt-32 mt-5 mb-4 lh-1 fw-bold">{{ $event->name }}</h2>
-                                        <ul class="d-flex list-unstyled mt-auto">
-                                            {{--                                        <li class="me-auto bg-white p-3">--}}
-                                            {{--                                            <img src="{{ asset('otapp_logo.png') }}" alt="Bootstrap" style="height: 32px; width: auto;" class="rounded-sm bg-white border border-white">--}}
-                                            {{--                                        </li>--}}
-                                            <li class="d-flex align-items-center me-3">
-                                                <i class="fa fa-map-marker mx-2"></i>
-                                                <small>{{ $event->location }}</small>
-                                            </li>
-                                            <li class="d-flex align-items-center">
-                                                <i class="fa fa-calendar mx-2"></i>
-                                                <small>{{ \Carbon\Carbon::make($event->date)->diffForHumans() }}</small>
-                                            </li>
-                                        </ul>
+                            <div class="col-md-4 my-4">
+                                <a href="{{ route('event', $event->id) }}">
+                                    <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url({{ $event->getImage() }}); background-size: cover; background-position: center;">
+                                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                                            <h2 class="pt-32 mt-5 mb-4 lh-1 fw-bold">{{ $event->name }}</h2>
+                                            <ul class="d-flex list-unstyled mt-auto">
+                                                {{--                                        <li class="me-auto bg-white p-3">--}}
+                                                {{--                                            <img src="{{ asset('otapp_logo.png') }}" alt="Bootstrap" style="height: 32px; width: auto;" class="rounded-sm bg-white border border-white">--}}
+                                                {{--                                        </li>--}}
+                                                <li class="d-flex align-items-center me-3">
+                                                    <i class="fa fa-map-marker mx-2"></i>
+                                                    <small>{{ $event->location }}</small>
+                                                </li>
+                                                <li class="d-flex align-items-center">
+                                                    <i class="fa fa-calendar mx-2"></i>
+                                                    <small>{{ \Carbon\Carbon::make($event->date)->diffForHumans() }}</small>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         @endforeach
-                    </div>
+{{--                    </div>--}}
                 </div>
             </div>
 

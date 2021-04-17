@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <form method="POST" action="{{ route('agent.events.store') }}" enctype="multipart/form-data">
                     @csrf
-                    <div class="row">
+                    <div class="row my-4">
                         <div class="form-group col-md-6">
                             <label>Title</label>
                             <input class="form-control" name="title" type="text">
@@ -25,7 +25,7 @@
                         <label>Description</label>
                         <textarea class="form-control" name="description"></textarea>
                     </div>
-                    <div class="row">
+                    <div class="row my-4">
                         <div class="form-group col-md-6">
                             <label>Location</label>
                             <input class="form-control" name="location" type="text">
@@ -35,7 +35,7 @@
                             <input type="datetime-local" class="form-control" name="date">
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row my-4">
                         <div class="form-group col-md-6">
                             <label>Banner Image</label>
                             <input class="form-control-file" type="file" name="banner">
