@@ -1,0 +1,9 @@
+/* ./resources/css/app.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ot-btn {
+    @apply p-2 px-4 md:mx-2 bg-dblue-900 text-white text-center border border-transparent rounded hover:bg-yellow-200 hover:text-dblue-900 transition-colors duration-300 mt-1 md:mt-0 md:ml-1;
+}
+
